@@ -52,10 +52,20 @@ describe GildedRose do
         expect(items[0].quality).to eq 50
       end
 
-      it "increases in quality by 1 each day" do
-        items = [Item.new("Aged Brie", 1, 49)]
-        GildedRose.new(items).update_quality()
-        expect(items[0].quality).to eq 50
+      context "before sell by date" do
+        it "increases item quality by 1 each day" do
+          items = [Item.new("Aged Brie", 1, 4)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 5
+        end
+      end
+
+      context "after sell by date" do
+        it "increases item quality by 2 each day" do
+          items = [Item.new("Aged Brie", -1, 4)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 6
+        end
       end
     end
 
@@ -119,25 +129,30 @@ describe GildedRose do
 
     context "for conjured items" do
       it "subtracts 1 from sell_in value" do
-
-      end
-
-      it "will not assign a quality greater than 50" do
-
+        items = [Item.new("Conjured", 4, 4)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 3
       end
 
       it "will not assign a negative quality" do
+        items = [Item.new("Conjured", 0, 0)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 0
       end
 
       context "before sell by date" do
         it "lowers item quality by 2 each day" do
-
+          items = [Item.new("Conjured", 2, 4)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 2
         end
       end
 
       context "after sell by date" do
         it "lowers item quality by 4 each day" do
-
+          items = [Item.new("Conjured", 0, 4)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 0
         end
       end
     end
