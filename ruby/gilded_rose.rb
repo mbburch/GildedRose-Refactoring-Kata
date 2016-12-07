@@ -6,6 +6,7 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
+
       case item.name
       when "Aged Brie"
         update_brie(item)
@@ -13,6 +14,8 @@ class GildedRose
         item
       when "Backstage passes to a TAFKAL80ETC concert"
         update_backstage_passes(item)
+      when "Conjured"
+        update_conjured(item)
       else
         item.sell_in -= 1
         return item.quality if item.quality <= 0
@@ -39,6 +42,12 @@ class GildedRose
     item.quality += 1
     item.quality += 1 if item.sell_in < 10
     item.quality += 1 if item.sell_in < 5
+  end
+
+  def update_conjured(item)
+    item.sell_in -= 1
+    return item.quality if item.quality <= 0
+    item.sell_in < 0 ? item.quality -= 4 : item.quality -= 2
   end
 
 end
