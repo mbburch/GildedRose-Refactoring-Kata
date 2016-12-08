@@ -17,7 +17,7 @@ describe GildedRose do
       end
 
       it "will not assign a negative quality" do
-        items = [Item.new("Standard", 2, 0)]
+        items = [Item.new("Standard", 0, 1)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 0
       end
@@ -47,7 +47,7 @@ describe GildedRose do
       end
 
       it "will not assign a quality greater than 50" do
-        items = [Item.new("Aged Brie", 1, 50)]
+        items = [Item.new("Aged Brie", 0, 49)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 50
       end
@@ -91,13 +91,13 @@ describe GildedRose do
       end
 
       it "will not assign a quality greater than 50" do
-        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 4, 50)]
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 4, 49)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 50
       end
 
       it "will not assign a negative quality" do
-        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 0)]
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 1)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 0
       end
@@ -135,7 +135,7 @@ describe GildedRose do
       end
 
       it "will not assign a negative quality" do
-        items = [Item.new("Conjured", 0, 0)]
+        items = [Item.new("Conjured", 0, 1)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 0
       end
